@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct WeatherAppSwiftUI_CombineApp: App {
-    let persistenceController = PersistenceController.shared
-
+    let persistenceController = CoreDataService.shared
+    @StateObject private var store = Store()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CurrentWeatherView()
+                .environmentObject(store)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
